@@ -1,0 +1,319 @@
+{% extends 'shared/base.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+{% block title %}
+    Checkout
+{% endblock %}
+
+
+{% block header_refrences %}
+    <style>
+        body{
+            background-color: #0b0e23;
+        }
+    </style>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <h2 class="my-5 h2 text-center" style="position: absolute;margin-left: 570px;margin-top: 50px">Checkout form</h2>
+    <div class="row steps">
+               <span class="cart-step" id="cart-step"><img id="cart-step-icon" class="" src="/static/img/shopping-cart%20(2).png" alt=""></span>
+                <div class="h-1"></div>
+               <span class="checkout-step-active" id="checkout-step"><img id="" class="" src="/static/img/cart.png" alt=""></span>
+                <div class="h-2-active"></div>
+               <span class="shop-step" id=""><img id="" class="" src="/static/img/bag.png" alt=""></span>
+    </div>
+    {% if items %}
+        <main class="mt-5 pt-4">
+    <div class="container wow fadeIn" style="visibility: visible; animation-name: fadeIn;margin-top: 50px">
+
+      <!-- Heading -->
+
+
+      <!--Grid row-->
+
+      <div class="row">
+
+
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
+          <!--Card-->
+          <div class="card card-checkout">
+              <a href="{% url 'cart-page' %}" class="cart-back-btn" type="button"><span class="flash-btn">< </span>Back To Cart</a>
+
+            <!--Card content-->
+            <form class="card-body" action="{% url 'check-out-page' %}" method="post" id="sub-checkout">
+                {% csrf_token %}
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+                  <!--firstName-->
+                  <div class="md-form">
+{#                    <input type="text" id="firstName" class="form-control">#}
+                      {{ form.firstname }}
+                      <small id="er-firstname"></small>
+
+                    <label for="firstName" id="lbl" class="">First name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+{#                    <input type="text" id="lastName" class="form-control">#}
+                      {{ form.lastname }}
+                      <small id="er-lastname"></small>
+                    <label for="lastName" id="lbl" class="">Last name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <!--Username-->
+{#              <div class="md-form input-group pl-0 mb-5">#}
+{#                <div class="input-group-prepend">#}
+{#                  <span class="input-group-text" id="basic-addon1">@</span>#}
+{#                </div>#}
+{#                <input type="text" class="form-control py-0 disabled" placeholder="Username" aria-describedby="basic-addon1">#}
+{#                  {{ form2.username }}#}
+{#                  {{ form2.username.errors }}#}
+{#              </div>#}
+
+              <!--email-->
+{#              <div class="md-form mb-5">#}
+{#                <input type="text" id="email" class="form-control disabled" placeholder="youremail@example.com">#}
+{#                {{ form2.email }}#}
+{#                {{ form2.email.errors }}#}
+{#                <label for="email" class="active">Email</label>#}
+{#              </div>#}
+
+              <!--address-->
+              <div class="md-form mb-5">
+{#                <input type="text" id="address" class="form-control" placeholder="1234 Main St">#}
+                  {{ form.address }}
+                  <small id="er-address"></small>
+
+                <label for="address" id="lbl" class="active">Address</label>
+              </div>
+
+              <!--address-2-->
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4">
+
+                  <label for="country" id="lbl" class="">Country</label>
+{#                  <input type="text" class="form-control" id="country" placeholder="" required="">#}
+                    {{ form.Country }}
+                  <small id="er-country"></small>
+
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="state" id="lbl" class="">State</label>
+{#                  <input type="text" class="form-control " id="state" placeholder="" required="">#}
+                    {{ form.State }}
+                    <small id="er-state"></small>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="zip" id="lbl" class="">Zip</label>
+{#                  <input type="text" class="form-control " id="zip" placeholder="" required="">#}
+                    {{ form.zip}}
+                  <small id="er-zip"></small>
+
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+
+
+            </form>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-4 mb-4">
+
+          <!-- Heading -->
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill pos-sp-item">{{ cart.item_count }}</span>
+          </h4>
+
+          <!-- Cart -->
+
+        <ul class="list-group mb-3 z-depth-1">
+          {% for item in items %}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <div>
+                    <h6 class="my-0">{{ item.product.name }}</h6>
+                    <small class="text-muted">x{{ item.quantity }}</small>
+                  </div>
+                  <span class="text-muted">${{ item.product.selling_price|price_format }}</span>
+                </li>
+          {% endfor %}
+        {% if not discount_code %}
+            <div class="promo-code-dis">
+
+            </div>
+        {% else %}
+            <li class="list-group-item d-flex justify-content-between" style="border-radius:0">
+                <span>Total (USD)</span>
+                <strong id="total-pr">${{ cart.total|price_format }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light" style="border-radius:0">
+                <div class="text-success">
+                    <h6 class="my-0">Promo code</h6>
+                </div>
+                <span class="text-danger" id="percent">-${{ persent }}</span>
+            </li>
+        {% endif %}
+
+        {% if not discount_code %}
+            <li class="list-group-item d-flex justify-content-between" style="padding-bottom: 40px">
+              <span>Total (USD)</span>
+              <strong id="final-price" class="text-success">${{ final_price|price_format }}</strong>
+            </li>
+        {% else %}
+            <li class="list-group-item d-flex justify-content-between" style="padding-bottom: 40px">
+              <span>Total (USD)</span>
+              <strong id="final-price" class="text-success">${{ final_price|price_format }}</strong>
+            </li>
+        {% endif %}
+
+
+      </ul>
+
+      <a class="check-out-btn" onclick="ShowPaypal()">Continue to checkout <span class="flash-btn"> > </span></a>
+
+
+
+
+
+
+      {% if not discount_code %}
+        <form class="discount-code">
+            <div class="my-d">
+              <input type="text" id="discount-code" class="form-control my-inpt" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              {% csrf_token %}
+              <div class="input-group-append">
+                <a class="btn-discount" type="button" onclick="CouponApply()">Redeem</a>
+              </div>
+            </div>
+        </form>
+      {% else %}
+          <form class="discount-code">
+            <div class="my-d">
+              <input type="text" id="discount-code" value="Discount successfully applied !" class="form-control my-inpt disabled" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <input type="hidden" name="csrfmiddlewaretoken" value="VReGdltHNHgayGH02rP69wN2Rem36j5dKyCUK1Sl8xVdXopHKr5p1iziHsquUhms">
+              <div class="input-group-append">
+                <a class="btn-discount btn-discount-success" type="button" onclick=""><img src="/static/img/success.png" alt=""></a>
+              </div>
+            </div>
+        </form>
+
+
+
+      {% endif %}
+          <div class="box-element hidden" id="payment-info" style="margin-top: 160px;margin-left: 12px">
+
+            <div id="paypal-button-container"></div>
+          </div>
+
+
+          <!-- Cart -->
+
+          <!-- Promo code -->
+
+          <!-- Promo code -->
+
+        </div>
+
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+     {% else %}
+        <div class="empty-cart">
+            <img src="/static/img/empty-cart%20(1).svg" alt="" style="margin-bottom: 100px">
+            <a href="{% url 'home-page' %}"><h1 class="h1-empty">Your Cart Is Empty !</h1></a>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+
+{% block footer_refrences %}
+{% if items %}
+    <script src="https://www.paypal.com/sdk/js?client-id=ATr9AMFx5EdtdNzj04-Kp1IAOqoG64NYIHrmQph_GwAKqVPfowzXPZr9GPBS6ei-5deHOPdBk57VMfyR&currency=USD"></script>
+    <script>
+  var total = {{ final_price }}
+  paypal.Buttons({
+
+      createOrder: (data, actions) => {
+          console.log("inga")
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: parseFloat(total).toFixed(2)
+                  }
+              }]
+          });
+      },
+
+
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(function(orderData) {
+          // Successful capture! For dev/demo purposes:
+          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+          const transaction = orderData.purchase_units[0].payments.captures[0];
+          SubmitForm(transaction);
+
+        });
+      }
+  }).render('#paypal-button-container');
+</script>
+{% endif %}
+
+{% endblock %}

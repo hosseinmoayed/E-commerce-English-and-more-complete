@@ -1,0 +1,153 @@
+{% load thumbnail %}
+
+
+{% load poll_extras %}
+
+
+<section class="text-center mb-4">
+    {% for group in product_list %}
+
+            <div class="row wow fadeIn">
+                  {% for product in group %}
+                            <div class="col-lg-3 col-md-6 mb-4">
+
+                        <!--Card-->
+
+                            <div class="card card-sh">
+
+                                      <!--Card image-->
+                                      <div class="view overlay">
+
+                                        <a href="{% url 'productdetail-page' slug=product.slug %}">
+                                            {% thumbnail product.image '260x240' padding=True as im %}
+                                                <img src="{{ im.url }}" class="card-img-top" alt="">
+                                            {% endthumbnail %}
+                                        </a>
+                                        <a href="{% url 'productdetail-page' slug=product.slug %}">
+                                          <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                      </div>
+                                      <!--Card image-->
+
+                                      <!--Card content-->
+                                      <div class="card-body text-center" style="padding: 5px">
+                                        <!--Category & Title-->
+
+                                        <a href="{% url 'productdetail-page' slug=product.slug %}" class="grey-text">
+                                          <h5>{{ category.name }}</h5>
+                                        </a>
+                                        <h5>
+                                          <strong>
+                                            <a href="{% url 'productdetail-page' slug=product.slug %}" class="dark-grey-text">{{ product.name }}
+                                                <br>
+                                                {% if product.tag %}
+                                                    <span class="badge badge-pill {% if product.tag == 'NEW' %}danger-color{% elif product.tag == 'Bestseller' %}primary-color{% elif product.tag == 'Trending' %}purple{% endif %}" id="tag">{{ product.tag }}</span>
+                                                {% endif %}
+
+
+                                            </a>
+                                          </strong>
+                                        </h5>
+
+                                        <h4 class="font-weight-bold blue-text" id="f-op">
+                                          {{ product.selling_price | price_format}}$
+                                        </h4>
+
+                                      </div>
+                                      <!--Card content-->
+
+                            </div>
+                            <!--Card-->
+
+                          </div>
+
+                  {% endfor %}
+
+
+            </div>
+
+
+    {% endfor %}
+{% if category.slug %}
+<a class="more" href="{% url 'productlist-page' category=category.slug %}">Show More</a>
+{% endif %}
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--Grid row-->
+{#    {% for group in product_list %}#}
+{#        <div class="row wow fadeIn"style="visibility: visible; animation-name: fadeIn;">#}
+{##}
+{##}
+{##}
+{#            {% for product in group %}#}
+{##}
+{#                <div class="col-lg-3 col-md-6 mb-4">#}
+{##}
+{#                <!--Card-->#}
+{#                    <div class="card">#}
+{#                          <!--Card image-->#}
+{#                        {% thumbnail product.image '372x420' padding=True as im %}#}
+{#                                <img src="{{ im.url }}" alt="" class="card-img-top" id="img-ph">#}
+{#                        {% endthumbnail %}#}
+{#                        <div class="view overlay">#}
+{#                            <a>#}
+{#                              <div class="mask rgba-white-slight waves-effect waves-light">#}
+{#                              </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                          <!--Card image-->#}
+{##}
+{#                          <!--Card content-->#}
+{#                        <div class="card-body text-center">#}
+{#                            <!--Category & Title-->#}
+{#                            <a href="" class="grey-text">#}
+{#                              <h5></h5>#}
+{#                            </a>#}
+{#                            <h5>#}
+{#                              <strong>#}
+{#                                <a href="" class="dark-grey-text">#}
+{#                                    <b>{{ product.name }}</b>#}
+{#                                  <span class="badge badge-pill danger-color">NEW</span>#}
+{#                                </a>#}
+{#                              </strong>#}
+{#                            </h5>#}
+{#                            <h4>{{ product.price }}</h4>#}
+{##}
+{#                            <h4 class="font-weight-bold blue-text">#}
+{#                              <strong>{{ product.price }}</strong>#}
+{#                            </h4>#}
+{#                              {{ product.price }}#}
+{##}
+{#                        </div>#}
+{#                          <!--Card content-->#}
+{##}
+{#                    </div>#}
+{#                        <!--Card-->#}
+{##}
+{#              </div>#}
+{#            {% endfor %}#}
+{##}
+{##}
+{#        </div>#}
+{#    {% endfor %}#}
+
+
+

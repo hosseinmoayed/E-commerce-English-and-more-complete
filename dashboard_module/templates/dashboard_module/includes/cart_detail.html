@@ -1,0 +1,105 @@
+{% load thumbnail %}
+{% load poll_extras %}
+
+
+
+
+{% if items %}
+    <div class="cart-total">
+    <a href="{% url 'check-out-page' %}" onclick="continuecheckout()" class="but-p {% if not items %}disabled{% endif %} ">Proceed to checkout <span class="flash-btn"> > </span></a>
+    <h2>Cart totals</h2>
+    <table>
+        <tr>
+            <td class="total">ITEM</td>
+            <td class="total" id="price-t">{{ cart.item_count }}</td>
+        </tr>
+        <tr>
+            <td class="total">SUBTOTAL</td>
+            <td class="total" id="price-tt">${{ cart.total|price_format }}</td>
+        </tr>
+        <tr>
+            <td class="total">TOTAL</td>
+            <td class="total" id="price-t">${{ cart.total|price_format }}</td>
+        </tr>
+
+    </table>
+
+</div>
+{% endif %}
+
+
+
+{% if items %}
+
+
+    <div class="pr-cart">
+    <table class="table">
+        <a href="{% url 'home-page' %}" class="continue-sh"><span class="flash-btn"> < </span>CONTINUE SHOPPING</a>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {% if items %}
+            {% for item in items %}
+
+                <tr>
+
+                      <th scope="row" onclick="RemoveProduct({{ item.id }})" class="remove" style="padding-top: 45px"><span>×</span></th>
+                      <td>
+                          <a href="{% url 'productdetail-page' slug=item.product.slug %}">
+                              {% thumbnail item.product.image '85x85' padding=True as im %}
+                                <img src="{{ im.url }}" alt="">
+                              {% endthumbnail %}
+                          </a>
+                      </td>
+
+                      <td style="padding-top: 54px">{{ item.product.name }}</td>
+
+                      <td style="padding-top: 54px">{{ item.product.selling_price|price_format}}</td>
+                      <td style="padding-top: 38px">
+                          <a  onclick="ChangeCount({'status' :'plus' , 'item_id':{{item.id}}})">+</a>
+                          <input type="number" min="1" value="{{ item.quantity }}">
+                          <a onclick="ChangeCount({'status' :'minus' , 'item_id':{{item.id}}})">-</a>
+                      </td>
+                      <td style="padding-top: 54px">{{ item.subtotal|price_format }}</td>
+                </tr>
+
+            {% endfor %}
+          {% endif %}
+
+
+
+
+          </tbody>
+
+        </table>
+</div>
+
+{% else %}
+    <div class="empty-cart">
+        <img src="/static/img/empty-cart%20(1).svg" alt="">
+        <a href="{% url 'home-page' %}"><h1 class="h1-empty">Your Cart Is Empty !</h1></a>
+    </div>
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+

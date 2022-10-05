@@ -1,0 +1,39 @@
+<div class="comments">
+<div class="container d-flex justify-content-center mt-100 mb-100">
+  <div class="row">
+      <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body" id="scroll-title">
+                <h4 class="card-title" id="com-count" style="font-weight: bold;color: black">Comments ({{ comments_count }})</h4>
+            </div>
+
+            <div class="comment-widgets m-b-20">
+
+                {% for comment in comments %}
+                    <div class="d-flex flex-row comment-row">
+                    <div class="p-2"><span class="round"><img src="{{ comment.userinfo.avatar.url }}" alt="user" width="40px" height="40px"></span></div>
+                    <div class="comment-text w-100">
+                        <h5>{{ comment.user.username }}</h5>
+                        <div class="comment-footer">
+                            <span class="date">{{ comment.date }}</span>
+
+                        </div>
+                        <p class="m-b-5 m-t-10">{{ comment.text }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+      </div>
+  </div>
+</div>
+</div>

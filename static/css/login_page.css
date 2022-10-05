@@ -1,0 +1,52 @@
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+#form3Example4 {
+    width: 260px;
+    margin-bottom: 45px;
+    /*margin-left: 660px;*/
+    /*position: relative;*/
+    /*margin-top: -20px;*/
+    /*top: 70px;*/
+}
+
+.login-form-m {
+    /*margin-left: 300px;*/
+}
+.login {
+    margin-left: 560px;
+    margin-right: 400px;
+    margin-top: 80px;
+    border: .5px #c9c7c7 solid;
+    padding: 30px 65px;
+    position: relative;
+    left: 250px;
+    /*box-shadow: #656363 0 0 5px .2px;*/
+    transition: all .5s ease-in-out;
+    border-radius: 5px;
+}
+
+#forgot {
+    margin-top: 20px;
+}
+.primaryAction {
+    margin-top: 40px;
+    margin-left: 67px;
+}
+.login:hover{
+    border: none;
+    box-shadow: #b2b1b1 0 0 20px .2px;
+    transition: all 1s ease-in-out;
+}

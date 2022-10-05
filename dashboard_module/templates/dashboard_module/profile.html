@@ -1,0 +1,52 @@
+{% extends 'shared/base.html' %}
+
+
+
+
+{% block title %}
+    Profile | {{ request.user.username }}
+{% endblock %}
+
+{% block header_refrences %}
+
+{% endblock %}
+
+{% block content %}
+
+{#---------slide_menu---------------#}
+
+    {% include 'dashboard_module/includes/sidebar_dashboard.html' %}
+
+{#---------slide_menu---------------#}
+
+<div class="orders-img">
+    <img src="https://img.icons8.com/color/75/000000/paid.png"/>
+    <span class="badge badge-pill success-color">{{ count }}</span>
+</div>
+
+
+    <form enctype="multipart/form-data" action="{% url 'chnage-image' %}" method="post">
+        {% csrf_token %}
+        <div class="main-container">
+        <img src="{{ userinfo.avatar.url}}" alt="" width="310" height="240">
+        <div class="inpt-img">
+            <p>Change Photo{{ form.avatar }}</p>
+    {#        <input type="file" id="avatar-input" class="hidden inpt-img-asli">#}
+        </div>
+
+    </div>
+
+    <div class="username-dash">
+
+        <span class="badge badge-pill new-span danger-color"><p style="padding: -30px 15px 0px 0;position: relative;bottom: 5px"><img src="/static/img/man.png" style="margin-right: 20px;margin-top: 1px"  alt="">{{ request.user.username }}</p></span>
+    </div>
+
+        <input type="submit" class="badge badge-pill save-span success-color" value="Save">
+    </form>
+
+{% endblock %}
+
+
+{% block footer_refrences %}
+
+{% endblock %}

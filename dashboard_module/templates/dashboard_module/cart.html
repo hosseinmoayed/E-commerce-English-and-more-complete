@@ -1,0 +1,37 @@
+{% extends 'shared/base.html' %}
+{% load poll_extras %}
+{% load thumbnail %}
+
+{% block title %}
+    Dashboard | {{ request.user.username }}
+{% endblock %}
+{% block header_refrences %}
+
+    <style>
+        body {
+            background-color: #0b0e23;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <section style="background-color: #0b0e23;height: 1100px">
+        <div class="cart-title">
+            <h1>Cart</h1>
+
+            <div class="row steps">
+               <span class="cart-step-active" id="cart-step"><img id="cart-step-icon" class="" src="/static/img/shopping-cart%20(2).png" alt=""></span>
+                <div class="h-1"></div>
+               <span class="checkout-step-no" id="checkout-step"><img id="" class="" src="/static/img/cart.png" alt=""></span>
+                <div class="h-2"></div>
+               <span class="shop-step" id="shop-step"><img id="" class="" src="/static/img/bag.png" alt=""></span>
+            </div>
+            <div class="htm-js">
+                {% include 'dashboard_module/includes/cart_detail.html' %}
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}

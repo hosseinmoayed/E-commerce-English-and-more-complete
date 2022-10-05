@@ -1,0 +1,55 @@
+
+
+
+
+
+
+
+
+
+
+
+<div class="cd-dropdown-wrapper">
+    <a class="cd-dropdown-trigger" href="#0">Menu</a>
+    <nav class="cd-dropdown">
+        <h2>Title</h2>
+        <a href="#0" class="cd-close">Close</a>
+        <ul class="cd-dropdown-content">
+
+            <li class="cd-divider">Category</li>
+
+            {% for main_category in main_categorys %}
+                <li class="has-children">
+                <a href="http://codyhouse.co/?p=748">{{ main_category.name }}</a>
+
+                <ul class="cd-secondary-dropdown is-hidden" id="ulmenu">
+                    <li class="go-back"><a href="#0">Menu</a></li>
+                    <li class="see-all"><a onclick="AllProduct({{ main_category.id }})">All {{ main_category.name }}</a></li>
+
+                    {% for category in main_category.category_set.all %}
+                        <li class="has-children" , id="fony">
+                        <a href="http://codyhouse.co/?p=748">{{ category.name }}</a>
+
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#0">{{ main_category.name }}</a></li>
+                            <li class="see-all"><a href="{% url 'productlist-page' category=category.slug %}">All {{ category.name }}</a></li>
+
+                            {% for cat in category.category_set.all %}
+                                {% if cat.product_set.all %}
+                                    <li><a href="{% url 'productlist-page' category=cat.slug %}">{{ cat.name }}</a></li>
+                                {% endif %}
+
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+
+                </ul> <!-- .cd-secondary-dropdown -->
+            </li> <!-- .has-children -->
+            {% endfor %}
+
+
+
+        </ul> <!-- .cd-dropdown-content -->
+    </nav> <!-- .cd-dropdown -->
+</div>

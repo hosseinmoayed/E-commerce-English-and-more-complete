@@ -1,0 +1,147 @@
+{% extends 'shared/base.html' %}
+
+{% block title %}
+    Edit Informnations
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+    <div class="contain-info">
+
+
+          <!--Card-->
+          <div class="card card-edit">
+              <a href="{% url 'profile-page' %}" class="cart-back-btn" type="button"><span class="flash-btn">< </span>Back To Dashboard</a>
+
+            <!--Card content-->
+            <form class="card-body" id="sub-checkout">
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+                  <!--firstName-->
+                  <div class="md-form">
+{#                    <input type="text" id="firstName" class="form-control">#}
+                      {{ form.firstname }}
+                      <small id="er-firstname"></small>
+
+                    <label for="firstName" id="lbl" class="">First name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+{#                    <input type="text" id="lastName" class="form-control">#}
+                      {{ form.lastname }}
+                      <small id="er-lastname"></small>
+                    <label for="lastName" id="lbl" class="">Last name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <!--Username-->
+{#              <div class="md-form input-group pl-0 mb-5">#}
+{#                <div class="input-group-prepend">#}
+{#                  <span class="input-group-text" id="basic-addon1">@</span>#}
+{#                </div>#}
+{#                <input type="text" class="form-control py-0 disabled" placeholder="Username" aria-describedby="basic-addon1">#}
+{#                  {{ form2.username }}#}
+{#                  {{ form2.username.errors }}#}
+{#              </div>#}
+
+              <!--email-->
+{#              <div class="md-form mb-5">#}
+{#                <input type="text" id="email" class="form-control disabled" placeholder="youremail@example.com">#}
+{#                {{ form2.email }}#}
+{#                {{ form2.email.errors }}#}
+{#                <label for="email" class="active">Email</label>#}
+{#              </div>#}
+
+              <!--address-->
+              <div class="md-form mb-5">
+{#                <input type="text" id="address" class="form-control" placeholder="1234 Main St">#}
+                  {{ form.address }}
+                  <small id="er-address"></small>
+
+                <label for="address" id="lbl" class="active">Address</label>
+              </div>
+
+              <!--address-2-->
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4">
+
+                  <label for="country" id="lbl" class="">Country</label>
+{#                  <input type="text" class="form-control" id="country" placeholder="" required="">#}
+                    {{ form.Country }}
+                  <small id="er-country"></small>
+
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="state" id="lbl" class="">State</label>
+{#                  <input type="text" class="form-control " id="state" placeholder="" required="">#}
+                    {{ form.State }}
+                    <small id="er-state"></small>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="zip" id="lbl" class="">Zip</label>
+{#                  <input type="text" class="form-control " id="zip" placeholder="" required="">#}
+                    {{ form.zip}}
+                  <small id="er-zip"></small>
+
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+
+
+            </form>
+
+          </div>
+
+          <!--/.Card-->
+
+    </div>
+    <a onclick="Saveinformation()" class="submit-info" type="button"><span class="flash-btn">^ </span>Save Information</a>
+
+    {% include 'dashboard_module/includes/sidebar_dashboard.html' %}
+
+
+
+
+{% endblock %}

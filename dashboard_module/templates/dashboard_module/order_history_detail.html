@@ -1,0 +1,73 @@
+{% extends 'shared/base.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+
+{% block title %}
+    Detail
+{% endblock %}
+
+
+{% block content %}
+    <div class="header-title" xmlns="http://www.w3.org/1999/html">
+        <div class="row icon-list">
+
+            <img src="https://img.icons8.com/emoji/68/000000/spiral-calendar-emoji.png"/>
+            <p style=""><span class="badge badge-pill danger-color">{{ object.payment_date }}</span></p>
+            <img src="https://img.icons8.com/color/68/000000/check--v1.png"/>
+            <p style=""><span class="badge badge-pill danger-color">{{ object.transection_id }}</span></p>
+            <img src="https://img.icons8.com/color/68/000000/money-transfer.png"/>
+            <p style="margin-left: 53px"><span class="badge badge-pill danger-color">$ {{ object.amount_paid }}</span></p>
+            <img style="padding-right: 0" src="https://img.icons8.com/fluency/68/000000/loyalty-card.png"/>
+            <p style="position:relative;right: 45px"><span class="badge badge-pill danger-color">{{ object.userdiscountcode.code.discount }}%</span></p>
+        </div>
+    </div>
+
+    <div class="pr-cart detail-his-cart">
+    <table class="table">
+        <a href="{% url 'orderhistory-page' %}" class="continue-sh"><span class="flash-btn"> < </span>BACK TO ORDER HISTORY</a>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {% if object.item_set.all %}
+            {% for item in object.item_set.all %}
+
+                <tr>
+
+                      <td>
+                          <a href="{% url 'productdetail-page' slug=item.product.slug %}">
+                              {% thumbnail item.product.image '85x85' padding=True as im %}
+                                <img src="{{ im.url }}" alt="">
+                              {% endthumbnail %}
+                          </a>
+                      </td>
+
+                      <td style="padding-top: 54px">{{ item.product.name }}</td>
+
+                      <td style="padding-top: 54px">{{ item.final_price|price_format}}</td>
+                      <td style="padding-top: 38px">
+                          <input type="number" min="1" disabled value="{{ item.quantity }}">
+                      </td>
+                      <td style="padding-top: 54px">{{ item.final_subtotal|price_format }}</td>
+                </tr>
+
+            {% endfor %}
+          {% endif %}
+
+
+
+
+          </tbody>
+
+        </table>
+</div>
+
+{% endblock %}

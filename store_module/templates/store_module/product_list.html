@@ -1,0 +1,67 @@
+{% extends 'shared/base.html' %}
+{% load thumbnail %}
+
+
+{% block title %}
+    Product|{{ category }}
+{% endblock %}
+
+
+{% block content %}
+    {% if product_list %}
+        <br>
+        <div id="main-main">
+            <main>
+                <div class="container" id="main">
+                    <h4>
+                        <strong>
+                            <span class="badge badge-pill success-color" id="tag-li">{{ category.name }}</span>
+                        </strong>
+                    </h4>
+                    <h4>
+                        <strong>
+                            <span class="badge badge-pill white product-filter" id="tag-li" >
+                                <div class="filter-group">
+                                    <a onclick="Filter('most_e' , '{{ category.slug }}')" class="" id="most">Most Expensive</a>
+                                    <a onclick="Filter('cheapest','{{ category.slug }}')" class="" id="ch">Cheapest</a>
+                                    <a onclick="Filter('highest_s','{{ category.slug }}')" class="" id="hi">Highest Score</a>
+                                </div>
+                            </span>
+                        </strong>
+                    </h4>
+                    {% include 'store_module/includes/product_item.html' %}
+                </div>
+            </main>
+
+            <!--Pagination-->
+              <nav class="d-flex justify-content-center wow fadeIn" id="pagination">
+                <ul class="pagination pg-blue">
+
+                  <!--Arrow left-->
+                  <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                    <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+
+                  {% for page in paginator.page_range %}
+                    <li class="page-item {% if page_obj.number == page %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                  {% endfor %}
+
+
+                  <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+        </div>
+        <!--Pagination-->
+
+    {% endif %}
+{% endblock %}
